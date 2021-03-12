@@ -20,7 +20,7 @@ form.forEach(item => {
 });
 
 async function postData(data) {
-    const result = await fetch('/', {
+    const result = await fetch('/greetings', {
         method: 'POST',
         body: data
     });

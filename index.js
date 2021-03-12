@@ -36,6 +36,31 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '\\public\\index.html');
 });
 
-app.post('/', upload.none() ,(req, res) => {
-    new Info(req.body).save();
+app.post('/greetings', upload.none(), (req, res) => {
+    Info.find((err, result) => {
+        // if (err) {
+        //     console.log(err);
+        // }
+        // if (result.length === 0) {
+        //     new Info(req.body).save();
+        // } else {
+        Info.updateOne({greetings: 'Привет, не желаешь что-то заказать?'}, {$set: {greetings: 'привет'}}, {upsert: true});
+        console.log('Успешно обновил greetings');
+        // }
+    })
 });
+
+// app.post('/', upload.none() ,(req, res) => {
+//     Info.find((err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         if (result.length === 0) {
+//             new Info(req.body).save();
+//         } else {
+//             console.log(result[0]);
+//             console.log(req.body);
+//             Info.updateOne(result[0], {$set: req.body});
+//         }
+//     });
+// });
