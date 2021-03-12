@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+const upload = multer();
 
 const PORT = 3000;
 
 const app = express();
-
-// const urlencodedParser = bodyParser.urlencoded({extended: true});
-const jsonParse = express.json();
 
 
 app.use(express.static(__dirname + '/public'));
@@ -32,9 +32,6 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '\\public\\index.html');
 });
 
-app.post('/', jsonParse ,(req, res) => {
-    console.log(req);
-    if(!req.body) return res.sendStatus(400);
-     
-    res.json(req.body); // отправляем пришедший ответ обратно
+app.post('/', upload.none() ,(req, res) => {
+    console.log(req.body.name);
 });
