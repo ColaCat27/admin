@@ -2,19 +2,21 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-const form = document.querySelector('form');
+const form = document.querySelectorAll('form');
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let formData = new FormData(form);
-
-    postData(formData)
-    .then(res => {
-        console.log(res);
-    })
-    .catch(e => {
-        console.log(e);
-    })
+form.forEach(item => {
+    item.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(item);
+    
+        postData(formData)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    });
 });
 
 async function postData(data) {
