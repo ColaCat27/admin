@@ -38,15 +38,51 @@ app.get('/', (req, res) => {
 
 app.post('/greetings', upload.none(), (req, res) => {
     Info.find((err, result) => {
-        // if (err) {
-        //     console.log(err);
-        // }
-        // if (result.length === 0) {
-        //     new Info(req.body).save();
-        // } else {
-        Info.updateOne({greetings: 'Привет, не желаешь что-то заказать?'}, {$set: {greetings: 'привет'}}, {upsert: true});
-        console.log('Успешно обновил greetings');
-        // }
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            Info.updateOne({greetings: result[0].greetings}, {$set: {greetings: req.body.greetings}}, {upsert: true})
+            .then(r => {
+                console.log(r);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
+    })
+});
+
+app.post('/about', upload.none(), (req, res) => {
+    Info.find((err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            Info.updateOne({about: result[0].about}, {$set: {about: req.body.about}}, {upsert: true})
+            .then(r => {
+                console.log(r);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
+    })
+});
+app.post('/events', upload.none(), (req, res) => {
+    Info.find((err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            Info.updateOne({events: result[0].events}, {$set: {events: req.body.events}}, {upsert: true})
+            .then(r => {
+                console.log(r);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
     })
 });
 

@@ -2,14 +2,16 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-const form = document.querySelectorAll('form');
+const greetings = document.querySelector('form[data-form="greetings"]');
+const about = document.querySelector('form[data-form="about"]');
+const events = document.querySelector('form[data-form="events"]');
 
-form.forEach(item => {
-    item.addEventListener('submit', (e) => {
+function sendData(ur, form) {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        let formData = new FormData(item);
+        let formData = new FormData(form);
     
-        postData(formData)
+        postData(ur,formData)
         .then(res => {
             console.log(res);
         })
@@ -17,14 +19,18 @@ form.forEach(item => {
             console.log(e);
         })
     });
-});
 
-async function postData(data) {
-    const result = await fetch('/greetings', {
-        method: 'POST',
-        body: data
-    });
-    return result;
+    async function postData(url, data) {
+        const result = await fetch(url, {
+            method: 'POST',
+            body: data
+        });
+        return result;
+    }
 }
+
+sendData('/greetings', greetings);
+sendData('/about', about);
+sendData('/events', events);
 
 });
