@@ -111,12 +111,20 @@ app.post('/upload', multer({storage: uploading}).single('photo'), (req, res) => 
 });
 
 app.post('/getinfo', (req, res) => {
-    console.log(req.body);
     Info.find((err, result) => {
         if (err) {
             console.log(err)
         }
         res.send(result[0]);
+    })
+})
+
+app.post('/getitems', (req, res) => {
+    Item.find((err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        res.send(result);
     })
 })
 
