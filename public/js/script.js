@@ -2,21 +2,24 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-function sendData(ur, form, selector) {
-    const elem = document.querySelector(selector);
+function sendData(ur, form) {
+    const elem = document.querySelectorAll(form);
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let formData = new FormData(form);
+    elem.forEach(item => {
+        item.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let formData = new FormData(item);
     
-        postData(ur,formData)
-        .then(res => {
-            console.log(res);
+            postData(ur,formData)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(e => {
+                console.log(e);
+            })
         })
-        .catch(e => {
-            console.log(e);
-        })
-    });
+    })
 
     async function postData(url, data = '') {
         const result = await fetch(url, {
@@ -30,8 +33,6 @@ function sendData(ur, form, selector) {
 sendData('/greetings', 'form[data-form="greetings"]');
 sendData('/about', 'form[data-form="about"]');
 sendData('/events', 'form[data-form="events"]');
-
-sendData('/upload', '');
 
 function getData(url, func) {
     async function getInfo(u) {
@@ -79,7 +80,7 @@ function createItem(data = [{
     price: 'Введите цену',
     weight: 'Введите вес',
     photo: 'Задайте фото'
-}]) {
+    }]) {
     data.forEach(item => {
        const form = document.createElement('form');
        const wrapper = document.querySelector('.shop__wrapper');
@@ -91,9 +92,10 @@ function createItem(data = [{
         <input type="file" name="photo" value="${item.photo}">
         <button class="shop__button">Добавить в базу</button>`;
         form.classList.add('shop__form')
-        wrapper.append(form); 
+        wrapper.append(form);
     });
-}
+    sendData('/upload', '.shop__form');
+    }
 
 
 });
