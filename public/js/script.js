@@ -85,7 +85,7 @@ function createItem(data = [{
        const form = document.createElement('form');
        const wrapper = document.querySelector('.shop__wrapper');
 
-        form.innerHTML = `<div class="shop__delete">&times;</div>
+        form.innerHTML = `<button class="shop__delete">&times;</button>
         <input type="text" name="name" value="${item.name}">
         <input type="text" name="price" value="${item.price}">
         <input type="text" name="weight" value="${item.weight}">
@@ -95,7 +95,41 @@ function createItem(data = [{
         wrapper.append(form);
     });
     sendData('/upload', '.shop__form');
+    deleteItem();
     }
 
+
+function deleteItem() {
+    const buttonDel = document.querySelectorAll('.shop__delete');
+
+    buttonDel.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = e.target;
+            const formData = new FormData(target.parentNode);
+            target.parentNode.remove();
+            removeFromBase('/delete', formData);
+        });
+    })    
+}
+
+function removeFromBase(u, da) {
+    
+    postData(u,da)
+    .then(res => {
+        console.log(res);
+    })
+    .catch(e => {
+        console.log(e);
+    })
+
+    async function postData(url, data = '') {
+        const result = await fetch(url, {
+            method: 'POST',
+            body: data
+        });
+        return result;
+    }
+}
 
 });

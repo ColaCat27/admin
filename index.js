@@ -128,6 +128,15 @@ app.post('/getitems', (req, res) => {
     })
 })
 
+app.post('/delete', upload.none(), (req, res) => {
+    Item.remove(req.body, (err, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+    })
+})
+
 // app.post('/', upload.none() ,(req, res) => {
 //     Info.find((err, result) => {
 //         if (err) {
