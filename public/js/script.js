@@ -95,6 +95,7 @@ function createItem(data = [{
         wrapper.append(form);
     });
     sendData('/upload', '.shop__form');
+<<<<<<< HEAD
     deleteItem();
     }
 
@@ -112,6 +113,9 @@ function deleteItem() {
         });
     })    
 }
+=======
+    }
+>>>>>>> main
 
 function removeFromBase(u, da) {
     
