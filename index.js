@@ -21,7 +21,7 @@ const uploading = multer.diskStorage({
 });
 
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 async function start() {
     try {
@@ -46,6 +46,7 @@ const Item = mongoose.model('item');
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '\\public\\index.html');
 });
+
 
 app.post('/greetings', upload.none(), (req, res) => {
     Info.find((err, result) => {
