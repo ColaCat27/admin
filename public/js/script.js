@@ -85,19 +85,37 @@ function createItem(data = [{
        const form = document.createElement('form');
        const wrapper = document.querySelector('.shop__wrapper');
 
-        form.innerHTML = `<div class="shop__item">
+        form.innerHTML = `
         <button class="shop__delete">&times;</button>
         <input type="text" name="name" placeholder="Название товара" value="${item.name}">
         <input type="text" name="price" placeholder="Цена товара" value="${item.price}">
         <input type="text" name="weight" placeholder="Вес товара" value="${item.weight}">
         <input type="file" name="photo">
-        <button class="shop__button">Добавить в базу</button>
-        </div>`;
-        form.classList.add('shop__form')
+        <button class="shop__button">Добавить в базу</button>`;
+        form.classList.add('shop__item')
         wrapper.append(form);
     });
+<<<<<<< HEAD
     sendData('/items/upload', '.shop__form');
+=======
+    sendData('/upload', '.shop__form');
+    deleteItem();
+>>>>>>> main
     }
+
+function deleteItem() {
+    const buttonDel = document.querySelectorAll('.shop__delete');
+
+    buttonDel.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = e.target;
+            const formData = new FormData(target.parentNode);
+            target.parentNode.remove();
+            removeFromBase('/delete', formData);
+        });
+    })    
+}
 
 function removeFromBase(u, da) {
     
