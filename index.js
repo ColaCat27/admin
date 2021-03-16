@@ -1,6 +1,8 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongodb-session')(session);
 const homeRoutes = require('./routes/home');
 const infoRoutes = require('./routes/info');
 const itemRoutes = require('./routes/items');
@@ -9,10 +11,12 @@ const adminRoutes = require('./routes/admin');
 
 const PORT = 3000;
 const app = express();
+const MONGODB_URI = 'mongodb+srv://colacat:sMqHVlIICvEleBln@cluster0.igcby.mongodb.net/coffee';
+
 
 async function start() {
     try {
-      await mongoose.connect('mongodb+srv://colacat:sMqHVlIICvEleBln@cluster0.igcby.mongodb.net/coffee', {
+      await mongoose.connect(MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true 
         });
@@ -27,12 +31,21 @@ async function start() {
 
 start();
 
+const store = new MongoStore({
+    collection: 'sessions',
+    uri: MONGODB_URI
+})
+
+app.use(cookieParser());
+
 app.use(express.static('public'));
 app.use(session({
     secret: 'some secret value',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store
 }));
+
 
 app.use('/', homeRoutes);
 app.use('/info', infoRoutes);

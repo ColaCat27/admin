@@ -9,7 +9,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 postData('/auth', formData)
                 .then(res => {
-                    console.log(res);
+                    return res.json()
+                    .then(data => {
+                        if (data.isAuthenticated == true) {
+                            document.cookie = `key=${data.key}`;
+                            window.location = '/admin';
+                        }
+                    })
                 })
                 .catch(e => {
                     console.log(e);

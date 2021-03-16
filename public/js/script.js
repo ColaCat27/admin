@@ -95,12 +95,8 @@ function createItem(data = [{
         form.classList.add('shop__item')
         wrapper.append(form);
     });
-<<<<<<< HEAD
     sendData('/items/upload', '.shop__form');
-=======
-    sendData('/upload', '.shop__form');
     deleteItem();
->>>>>>> main
     }
 
 function deleteItem() {
