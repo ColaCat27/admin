@@ -30,9 +30,9 @@ function sendData(ur, form) {
     }
 }
 
-sendData('/greetings', 'form[data-form="greetings"]');
-sendData('/about', 'form[data-form="about"]');
-sendData('/events', 'form[data-form="events"]');
+sendData('/info/greetings', 'form[data-form="greetings"]');
+sendData('/info/about', 'form[data-form="about"]');
+sendData('/info/events', 'form[data-form="events"]');
 
 function getData(url, func) {
     async function getInfo(u) {
@@ -54,8 +54,8 @@ function getData(url, func) {
     })
 }
 
-getData('/getinfo', useData);
-getData('/getitems', createItem);
+getData('/info/getinfo', useData);
+getData('/items/getitems', createItem);
 
 function useData(d) {
 const greetings = document.querySelector('form[data-form="greetings"]');
@@ -96,7 +96,7 @@ function createItem(data = [{
         form.classList.add('shop__form')
         wrapper.append(form);
     });
-    sendData('/upload', '.shop__form');
+    sendData('/items/upload', '.shop__form');
     }
 
 function removeFromBase(u, da) {
