@@ -8,7 +8,6 @@ const infoRoutes = require('./routes/info');
 const itemRoutes = require('./routes/items');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
-
 const PORT = 3000;
 const app = express();
 const MONGODB_URI = 'mongodb+srv://colacat:sMqHVlIICvEleBln@cluster0.igcby.mongodb.net/coffee';

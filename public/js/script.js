@@ -108,7 +108,7 @@ function deleteItem() {
             const target = e.target;
             const formData = new FormData(target.parentNode);
             target.parentNode.remove();
-            removeFromBase('/delete', formData);
+            removeFromBase('/items/delete', formData);
         });
     })    
 }

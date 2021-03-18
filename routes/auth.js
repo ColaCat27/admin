@@ -16,17 +16,24 @@ router.post('/', upload.none(), async (req, res) => {
             }
             return res;
         })
-    
-        req.session.key = '2359235012foEIW412';
-        req.session.user = user._conditions;
-        req.session.isAuthenticated = true;
 
-        req.session.save(err => {
-            if (err) {
-                throw err
-            }
-            res.send({isAuthenticated:true, key: req.session.key});
-        })
+        if (user._conditions.login == req.body.login && user._conditions.password == req.body.password && req.body.login != '' && req.body.password != '') {
+                    
+            req.session.key = '2359235012foEIW412';
+            req.session.user = user._conditions;
+            req.session.isAuthenticated = true;
+
+            req.session.save(err => {
+                if (err) {
+                    throw err
+                }
+                res.send({isAuthenticated:true, key: req.session.key});
+            })
+        } else {
+            res.send({
+                error: 'Вы ввели неверный пароль'
+            });
+        }
 
 });
 

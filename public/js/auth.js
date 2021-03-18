@@ -31,4 +31,5 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
         auth();
+
 });
